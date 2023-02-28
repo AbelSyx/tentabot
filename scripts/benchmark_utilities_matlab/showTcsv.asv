@@ -1,0 +1,24 @@
+filename = '/home/server/workspace/tentabot_ws/src/tentabot/dataset/trajectory_sampling/turtlebot3/20220207_223653/trajectory_data.csv';
+M = csvread(filename);
+
+[r,c] = size(M)
+x = []
+y = []
+z = []
+for ri = 1:r
+    for xi = 1:3:c
+        x = [x M(:,xi)];
+    end
+    x = x(:);
+    
+    for yi = 2:3:c
+        y = [y M(:,yi)];
+    end
+    y = y(:);
+    
+    for zi = 3:3:c
+        z = [z M(:,zi)];
+    end
+    z = z(:);
+    plot3(x,y,z)
+end
