@@ -85,7 +85,7 @@ smooth_scale: 1
 ### NOTE: Be sure that -> drl_service_flag: true
 
 ### Common Parameters for Training and Testing
-mode: "testing"
+mode: "training"
 drl_data_path: "dataset/drl/testing/stretch/"
 #initial_training_path: ""
 initial_training_path: "20220220_001614_PPO_tentabot/"

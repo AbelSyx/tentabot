@@ -4,6 +4,7 @@
     config_tentabot_server_firefly
     config_tentabot_server_turtlebot3
     config_tentabot_server_ROSbot
+    config_tentabot_server_scoutmini
   -->
   <arg name="config_tentabot_server" default="config_tentabot_server_turtlebot3"/>
 

@@ -13,8 +13,9 @@
     config_task_nav_jackal
     config_task_nav_jackal_real
     config_task_nav_rosbot
+    config_task_nav_scoutmini
   -->
-  <arg name="config_task_name" default="config_task_nav_turtlebot3"/>
+  <arg name="config_task_name" default="config_task_nav_rosbot"/>
 
   <!-- CONFIGURATION OPTIONS
     config_map_utility_cylinders0_firefly
@@ -25,8 +26,9 @@
     config_map_utility_jackal_real
     config_map_utility_rosbot
     config_map_utility_turtlebot2
+    config_map_utility_scoutmini
   -->
-  <arg name="config_map_utility"  default="config_map_utility_turtlebot3" />
+  <arg name="config_map_utility"  default="config_map_utility_rosbot" />
 
   <!-- CONFIGURATION OPTIONS
     config_tentabot_server_firefly
@@ -35,8 +37,9 @@
     config_tentabot_server_jackal
     config_tentabot_server_jackal_real
     config_tentabot_server_rosbot
+    config_tentabot_server_scoutmini
   -->
-  <arg name="config_tentabot_server" default="config_tentabot_server_turtlebot3"/>
+  <arg name="config_tentabot_server" default="config_tentabot_server_rosbot"/>
 
   <!-- PUBLISH CONFIGURATION PARAMETERS -->
   <param name="sim_flag"                          value="$(arg sim_flag)" />
