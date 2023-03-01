@@ -20,6 +20,7 @@
     stretch
     jackal
     rosbot
+    scoutmini
   -->
   <arg name="robot_name"      default="turtlebot3" />
   <arg name="robot_model"     default="burger" />
@@ -166,6 +167,17 @@
   </group>
 
   <group if="$(eval arg('robot_name') == 'jackal')">
+    <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0 0 0 0 1 world odom 100" />
+    <include file="$(find tentabot)/launch/utilities/spawn_robot.launch">
+      <arg name="robot" value="$(arg robot_name)" />
+      <arg name="model" value="$(arg robot_model)" />
+      <arg name="x" value="$(arg robot0_init_pos_x)" />
+      <arg name="y" value="$(arg robot0_init_pos_y)" />
+      <arg name="yaw" value="$(arg robot0_init_yaw)" />
+    </include>
+  </group>
+
+  <group if="$(eval arg('robot_name') == 'scoutmini')">
     <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0 0 0 0 1 world odom 100" />
     <include file="$(find tentabot)/launch/utilities/spawn_robot.launch">
       <arg name="robot" value="$(arg robot_name)" />

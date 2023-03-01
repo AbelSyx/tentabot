@@ -110,7 +110,7 @@ observation_space_type: "Tentabot_FC"
 # Options:
 # TurtleBot3tentabot_drl-v0
 # TurtleBot3Realtentabot_drl-v0
-task_and_robot_environment_name: "TurtleBot3tentabot_drl-v0"
+task_and_robot_environment_name: "TurtleBot3tentabot_drl-v00"
 
 learning_rate: 0.0002
 n_steps: 1000

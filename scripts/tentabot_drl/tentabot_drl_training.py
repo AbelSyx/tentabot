@@ -203,7 +203,7 @@ if __name__ == '__main__':
         n_actions = env.action_space.n
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(activation_fn=th.nn.ReLU, net_arch=dict(pi=[400, 300], vf=[400, 300]))
+        policy_kwargs = dict(activation_fn=th.nn.ReLU, net_arch=[dict(pi=[400, 300], vf=[400, 300])])
         model = PPO("MlpPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     elif observation_space_type == "laser_image_2DCNN_FC":
@@ -213,7 +213,7 @@ if __name__ == '__main__':
         #n_actions = env.action_space.shape[-1]
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(features_extractor_class=laser_image_2DCNN_FC_Policy, net_arch=dict(pi=[600, 400], vf=[600, 400]),)
+        policy_kwargs = dict(features_extractor_class=laser_image_2DCNN_FC_Policy, net_arch=[dict(pi=[600, 400], vf=[600, 400])],)
         model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     elif observation_space_type == "laser_rings_2DCNN_FC":
@@ -223,7 +223,7 @@ if __name__ == '__main__':
         #n_actions = env.action_space.shape[-1]
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(features_extractor_class=laser_rings_2DCNN_FC_Policy, net_arch=dict(pi=[600, 400], vf=[600, 400]),)
+        policy_kwargs = dict(features_extractor_class=laser_rings_2DCNN_FC_Policy, net_arch=[dict(pi=[600, 400], vf=[600, 400])],)
         model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     elif observation_space_type == "laser_1DCNN_FC":
@@ -233,7 +233,7 @@ if __name__ == '__main__':
         #n_actions = env.action_space.shape[-1]
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(features_extractor_class=laser_1DCNN_FC_Policy, net_arch=dict(pi=[400, 300], vf=[400, 300]),)
+        policy_kwargs = dict(features_extractor_class=laser_1DCNN_FC_Policy, net_arch=[dict(pi=[400, 300], vf=[400, 300])],)
         model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     elif observation_space_type == "Tentabot_1DCNN_FC":
@@ -241,7 +241,7 @@ if __name__ == '__main__':
         n_actions = env.action_space.n
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(features_extractor_class=Tentabot_1DCNN_FC_Policy, net_arch=dict(pi=[400, 300], vf=[400, 300]),)
+        policy_kwargs = dict(features_extractor_class=Tentabot_1DCNN_FC_Policy, net_arch=[dict(pi=[400, 300], vf=[400, 300])],)
         model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     elif observation_space_type == "Tentabot_2DCNN_FC":
@@ -249,7 +249,7 @@ if __name__ == '__main__':
         n_actions = env.action_space.n
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(features_extractor_class=Tentabot_2DCNN_FC_Policy, net_arch=dict(pi=[600, 400], vf=[600, 400]),)
+        policy_kwargs = dict(features_extractor_class=Tentabot_2DCNN_FC_Policy, net_arch=[dict(pi=[600, 400], vf=[600, 400])],)
         model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     elif observation_space_type == "laser_WP_1DCNN_FC":
@@ -259,7 +259,7 @@ if __name__ == '__main__':
         #n_actions = env.action_space.shape[-1]
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
-        policy_kwargs = dict(features_extractor_class=laserWayPoints_1DCNN_FC_Policy, net_arch=dict(pi=[400, 300], vf=[400, 300]),)
+        policy_kwargs = dict(features_extractor_class=laserWayPoints_1DCNN_FC_Policy, net_arch=[dict(pi=[400, 300], vf=[400, 300])],)
         model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
 
     if initial_training_path == "":

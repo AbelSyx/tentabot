@@ -162,4 +162,29 @@
     </node>
   </group>
 
+  <group if="$(eval arg('robot') == 'scoutmini')">
+
+    <param name="robot_description"
+          command="$(find xacro)/xacro $(find tentabot)/urdf/jackal_custom1.urdf.xacro
+                      --inorder" />
+
+    <include file="$(find jackal_control)/launch/control.launch" />
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
+          args="-urdf
+                -param robot_description 
+                -model robot
+                -x $(arg x) -y $(arg y) -z $(arg z) 
+                -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+      <!--param name="tf_prefix" value="$(arg ns)" /-->
+      <param name="publish_frequency" type="double" value="30.0" />
+    </node>
+
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher1">
+      <param name="/use_gui" value="$(arg gui)" />
+    </node>
+  </group>
+
 </launch>
