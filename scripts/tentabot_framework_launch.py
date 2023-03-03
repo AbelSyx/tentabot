@@ -150,7 +150,7 @@ if __name__=="__main__":
             mobile_garden_launch = [ (roslaunch.rlutil.resolve_launch_arguments(mobile_garden_args)[0], mobile_garden_args[1:]) ]
             mobile_garden = roslaunch.parent.ROSLaunchParent(uuid, mobile_garden_launch)
             mobile_garden.start()
-
+            print("I'm here!!!!!!!!!!")
             print("tentabot_framework_launch:: __main__ -> Launched Mobile-Garden!")
         
         rospy.sleep(2)

@@ -165,26 +165,34 @@
   <group if="$(eval arg('robot') == 'scoutmini')">
 
     <param name="robot_description"
-          command="$(find xacro)/xacro $(find tentabot)/urdf/jackal_custom1.urdf.xacro
-                      --inorder" />
+          command="$(find xacro)/xacro --inorder  '$(find scout_description)/urdf/mini_vlp16_rs435.xacro'
+                  robot_namespace:=$(arg ns)" />
 
-    <include file="$(find jackal_control)/launch/control.launch" />
+    <include file="$(find scout_control)/launch/scoutmini_control.launch" >
+          <arg name="robot_namespace" value="$(arg ns)"/>
+    </include>
+
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+        <remap from="/scan" to="/velodyne_points"/>
+    </node>
 
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
           args="-urdf
                 -param robot_description 
                 -model robot
+                -robot_namespace $(arg ns)
                 -x $(arg x) -y $(arg y) -z $(arg z) 
                 -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" />
 
+  <!--
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-      <!--param name="tf_prefix" value="$(arg ns)" /-->
       <param name="publish_frequency" type="double" value="30.0" />
     </node>
-
+-->
     <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher1">
       <param name="/use_gui" value="$(arg gui)" />
     </node>
+  
   </group>
 
 </launch>

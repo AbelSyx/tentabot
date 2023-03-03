@@ -50,11 +50,11 @@ tpitch_cnt: 1
 trajectory_gen_type: "kinematic"
 ttime: 6
 lat_velo_samp_cnt: 7
-ang_velo_samp_cnt: 21
+ang_velo_samp_cnt: 15
 
 ## Offline Tuning Parameters
 # trajectory_data_path: "dataset/trajectory_sampling/scoutmini/20220325_102949/"
-trajectory_data_path: ""
+trajectory_data_path: "src/tentabot/dataset/trajectory_sampling/scoutmini/20230303_112809"
 max_occupancy_belief_value: 100
 sweight_max: 1 
 sweight_scale: 10 
@@ -87,10 +87,10 @@ smooth_scale: 1
 
 ### Common Parameters for Training and Testing
 mode: "training"
-drl_data_path: "dataset/drl/testing/turtlebot3/"    # ？？？
-#initial_training_path: ""
+drl_data_path: "dataset/drl/testing/scoutmini/"    # ？？？
+initial_training_path: ""
 #initial_training_path: "20220220_001614_PPO_tentabot/"
-initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_1DCNN_FC/20220228_222559_PPO_tentabot/"    # ???
+#initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_1DCNN_FC/20220228_222559_PPO_tentabot/"    # ???
 
 ### DRL-Training Parameters
 deep_learning_algorithm: "PPO"
