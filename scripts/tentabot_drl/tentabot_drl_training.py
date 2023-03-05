@@ -32,6 +32,8 @@ from stable_baselines3.common.monitor import Monitor
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CheckpointCallback
 
+from sb3_contrib import RecurrentPPO
+
 from tentabot_drl_custom_policy import *
 from tentabot_drl.tentabot_drl_plot_result_training import get_training_result, read_data_size
 
@@ -242,7 +244,10 @@ if __name__ == '__main__':
         print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
 
         policy_kwargs = dict(features_extractor_class=Tentabot_1DCNN_FC_Policy, net_arch=[dict(pi=[400, 300], vf=[400, 300])],)
-        model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
+        if deep_learning_algorithm == "PPO": 
+            model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
+        elif deep_learning_algorithm == "RecurrentPPO":
+            model = RecurrentPPO("MultiInputLstmPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)            
 
     elif observation_space_type == "Tentabot_2DCNN_FC":
     
