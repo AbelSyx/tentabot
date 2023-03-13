@@ -90,7 +90,7 @@ def get_color_array(success_data):
 DESCRIPTION: TODO...
 '''
 def get_successful_avg(data, success_data):
-    total_val = 0.0;
+    total_val = 0.0
     counter = 0
 
     for d in range(len(success_data)):

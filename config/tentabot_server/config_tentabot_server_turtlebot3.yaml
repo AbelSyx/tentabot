@@ -50,8 +50,8 @@ tpitch_cnt: 1
 
 trajectory_gen_type: "kinematic"
 ttime: 8
-lat_velo_samp_cnt: 5
-ang_velo_samp_cnt: 21
+lat_velo_samp_cnt: 6
+ang_velo_samp_cnt: 15
 
 ## Offline Tuning Parameters
 trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20220323_142544/"
@@ -87,9 +87,10 @@ smooth_scale: 1
 ### Common Parameters for Training and Testing
 mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
-initial_training_path: ""
-#initial_training_path: "20220220_001614_PPO_tentabot/"
-#initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"
+initial_training_path: "20230305_165817_RecurrentPPO_tentabot/"  # 20230305_165817_RecurrentPPO_tentabot/
+#initial_training_path: ""    style for training firstly
+#initial_training_path: "20220220_001614_PPO_tentabot/"     style for training 
+#initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"   style for testing 
 
 
 ### DRL-Training Parameters
@@ -119,7 +120,7 @@ learning_rate: 0.0002
 n_steps: 1000
 batch_size: 50
 ent_coef: 0.001
-training_timesteps: 200000
+training_timesteps: 2000
 max_episode_steps: 2000
 
 training_checkpoint_freq: 1000
@@ -136,7 +137,8 @@ laser_image_width: 64
 laser_image_height: 64
 
 ## Algorithm: Tentabot-DRL Parameters
-obs_min_range: 0.25
+obs_min_range: 0.25    # the min range to check collision or not
+safety_range_threshold: 0.35   # the min safe distance from an obstacle
 n_obs_stack: 5
 n_skip_obs_stack: 1
 cit_flag: True # cit = channel is time
@@ -147,6 +149,7 @@ reward_terminal_success: 8
 reward_step_scale: 1
 penalty_terminal_fail: -5
 penalty_cumulative_step: -5
+penalty_safety_scale: -0.25
 
 ### DRL-Testing Parameters
 max_testing_episode_timesteps: 2000

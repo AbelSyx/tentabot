@@ -34,10 +34,10 @@ robot_bbx_y_max: 0.2
 robot_bbx_z_min: -0.0
 robot_bbx_z_max: 0.6
 
-robot_max_lat_velo: 0.5
-robot_max_lat_acc: 1.0
-robot_max_yaw_velo: 2.0
-robot_max_yaw_acc: 1.0
+robot_max_lat_velo: 1.5
+robot_max_lat_acc: 1.5
+robot_max_yaw_velo: 1.5
+robot_max_yaw_acc: 1.5
 
 robot_init_pos_x: 0.0                
 robot_init_pos_y: 0.0                 
