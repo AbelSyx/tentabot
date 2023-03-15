@@ -4,7 +4,7 @@
 # training_garden_dynamic_0
 # validation
 # real
-world_name: "training_garden_static_1"
+world_name: "training_garden_static_0"
 world_frame_name: "world"
 
 ## Goal Parameters
@@ -34,8 +34,8 @@ robot_bbx_y_max: 0.2
 robot_bbx_z_min: -0.0
 robot_bbx_z_max: 0.6
 
-robot_max_lat_velo: 1.5
-robot_max_lat_acc: 1.5
+robot_max_lat_velo: 1.0
+robot_max_lat_acc: 1.0
 robot_max_yaw_velo: 1.5
 robot_max_yaw_acc: 1.5
 

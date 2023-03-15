@@ -137,6 +137,7 @@ class Config():
             self.penalty_terminal_fail = rospy.get_param('penalty_terminal_fail', 0.0)
             self.penalty_cumulative_step = rospy.get_param('penalty_cumulative_step', 0.0)
             self.penalty_safety_scale = rospy.get_param('penalty_safety_scale', 0.0)
+            self.penalty_speed_change = rospy.get_param('penalty_speed_change', 0.0)
             #self.reward_terminal_mintime = rospy.get_param('reward_terminal_mintime', 0.0)
             
             if data_folder_path:
@@ -176,6 +177,7 @@ class Config():
                 training_log_data.append(["penalty_terminal_fail", self.penalty_terminal_fail])
                 training_log_data.append(["penalty_cumulative_step", self.penalty_cumulative_step])
                 training_log_data.append(["penalty_safety_scale", self.penalty_safety_scale])
+                training_log_data.append(["penalty_speed_change", self.penalty_speed_change])
                 #training_log_data.append(["reward_terminal_mintime", self.reward_terminal_mintime])
 
                 if self.observation_space_type == "Tentabot_WP_FC" or \
@@ -265,6 +267,7 @@ class Config():
             self.penalty_terminal_fail = float(get_training_param(self.initial_training_path, "penalty_terminal_fail"))
             self.penalty_cumulative_step = float(get_training_param(self.initial_training_path, "penalty_cumulative_step"))
             self.penalty_safety_scale = float(get_training_param(self.initial_training_path, "penalty_safety_scale"))
+            self.penalty_speed_change = float(get_training_param(self.initial_training_path, "penalty_speed_change"))
             #self.reward_terminal_mintime = float(get_training_param(self.initial_training_path, "reward_terminal_mintime"))
                 
             '''

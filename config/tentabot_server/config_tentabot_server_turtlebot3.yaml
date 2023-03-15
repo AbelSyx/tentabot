@@ -39,7 +39,7 @@ drl_service_flag: true
 
 ## Trajectory Sampling Parameters
 trajectory_sampling_dataset_path: "dataset/trajectory_sampling/turtlebot3/"
-tlen: 10
+tlen: 5
 tsamp_cnt: 20
 
 #trajectory_gen_type: "geometric"
@@ -49,12 +49,12 @@ tyaw_cnt: 1
 tpitch_cnt: 1
 
 trajectory_gen_type: "kinematic"
-ttime: 8
+ttime: 6
 lat_velo_samp_cnt: 6
 ang_velo_samp_cnt: 15
 
 ## Offline Tuning Parameters
-trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20220323_142544/"
+trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20230314_164646/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
 max_occupancy_belief_value: 100
 sweight_max: 1 
 sweight_scale: 10 
@@ -87,7 +87,7 @@ smooth_scale: 1
 ### Common Parameters for Training and Testing
 mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
-initial_training_path: "20230305_165817_RecurrentPPO_tentabot/"  # 20230305_165817_RecurrentPPO_tentabot/
+initial_training_path: ""  # 20230305_165817_RecurrentPPO_tentabot/
 #initial_training_path: ""    style for training firstly
 #initial_training_path: "20220220_001614_PPO_tentabot/"     style for training 
 #initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"   style for testing 
@@ -120,7 +120,7 @@ learning_rate: 0.0002
 n_steps: 1000
 batch_size: 50
 ent_coef: 0.001
-training_timesteps: 2000
+training_timesteps: 200000
 max_episode_steps: 2000
 
 training_checkpoint_freq: 1000
@@ -138,18 +138,19 @@ laser_image_height: 64
 
 ## Algorithm: Tentabot-DRL Parameters
 obs_min_range: 0.25    # the min range to check collision or not
-safety_range_threshold: 0.35   # the min safe distance from an obstacle
+safety_range_threshold: 0.60   # the min safe distance from an obstacle
 n_obs_stack: 5
 n_skip_obs_stack: 1
 cit_flag: True # cit = channel is time
 n_wp: 8
 
 ## Reward:
-reward_terminal_success: 8
+reward_terminal_success: 25
 reward_step_scale: 1
 penalty_terminal_fail: -5
-penalty_cumulative_step: -5
-penalty_safety_scale: -0.25
+penalty_cumulative_step: -4
+penalty_safety_scale: -0.20
+penalty_speed_change: -0.005
 
 ### DRL-Testing Parameters
 max_testing_episode_timesteps: 2000
