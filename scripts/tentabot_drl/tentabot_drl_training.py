@@ -19,6 +19,7 @@ NUA TODO:
 - 
 '''
 
+import gym
 import rospy
 import rospkg
 import os
@@ -33,6 +34,10 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CheckpointCallback
 
 from sb3_contrib import RecurrentPPO
+
+from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy, MaskableMultiInputActorCriticPolicy
+from sb3_contrib.common.wrappers import ActionMasker
+from sb3_contrib.ppo_mask import MaskablePPO
 
 from tentabot_drl_custom_policy import *
 from tentabot_drl.tentabot_drl_plot_result_training import get_training_result, read_data_size
@@ -99,6 +104,24 @@ def get_param_value_from_training_log(log_path, param_name):
         for row in csv_reader:
             if row[0] == param_name:
                 return row[1]
+
+    # MaskablePPO
+def mask_fn(env) -> np.ndarray:
+    # Do whatever you'd like in this function to return the action mask
+    # for the current env. In this example, we assume the env has a
+    # helpful method we can rely on.
+    mask = env.valid_action_mask()
+    valid_mask_action = np.array([bool(i) for i in mask])
+    
+    print("-------------------")
+    '''
+    for i, val in enumerate(mask):
+        print(str(i) + ": " + str(val))
+    '''
+    print(valid_mask_action)
+    print("-------------------")
+    
+    return valid_mask_action
 
 '''
 DESCRIPTION: TODO...
@@ -248,6 +271,9 @@ if __name__ == '__main__':
             model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
         elif deep_learning_algorithm == "RecurrentPPO":
             model = RecurrentPPO("MultiInputLstmPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)            
+        elif deep_learning_algorithm == "MaskablePPO":
+            env = ActionMasker(env, mask_fn)  # Wrap to enable masking
+            model = MaskablePPO(MaskableMultiInputActorCriticPolicy, env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)            
 
     elif observation_space_type == "Tentabot_2DCNN_FC":
     
@@ -287,8 +313,12 @@ if __name__ == '__main__':
             model = PPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
         elif deep_learning_algorithm == "RecurrentPPO":
             model = RecurrentPPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
+        elif deep_learning_algorithm == "MaskablePPO":
+            env = ActionMasker(env, mask_fn)  # Wrap to enable masking
+            model = MaskablePPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
         
         model.set_env(env)
+            
 
         total_training_timesteps = int(get_param_value_from_training_log(initial_training_path_specific, "total_training_timesteps")) + training_timesteps
         print("--------------")

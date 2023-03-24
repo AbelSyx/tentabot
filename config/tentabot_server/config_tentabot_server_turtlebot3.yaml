@@ -54,7 +54,7 @@ lat_velo_samp_cnt: 6
 ang_velo_samp_cnt: 15
 
 ## Offline Tuning Parameters
-trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20230314_164646/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
+trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20220323_142544/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
 max_occupancy_belief_value: 100
 sweight_max: 1 
 sweight_scale: 10 
@@ -87,7 +87,7 @@ smooth_scale: 1
 ### Common Parameters for Training and Testing
 mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
-initial_training_path: ""  # 20230305_165817_RecurrentPPO_tentabot/
+initial_training_path: "20230321_113840_MaskablePPO_tentabot/"  # 20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
 #initial_training_path: ""    style for training firstly
 #initial_training_path: "20220220_001614_PPO_tentabot/"     style for training 
 #initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"   style for testing 
@@ -97,7 +97,8 @@ initial_training_path: ""  # 20230305_165817_RecurrentPPO_tentabot/
 # Options
 # PPO
 # RecurrentPPO
-deep_learning_algorithm: "RecurrentPPO"
+# MaskablePPO
+deep_learning_algorithm: "MaskablePPO"
 motion_planning_algorithm: "tentabot_drl"
 
 # Options:
@@ -118,9 +119,9 @@ task_and_robot_environment_name: "TurtleBot3tentabot_drl-v00"
 
 learning_rate: 0.0002
 n_steps: 1000
-batch_size: 50
+batch_size: 100
 ent_coef: 0.001
-training_timesteps: 200000
+training_timesteps: 300000
 max_episode_steps: 2000
 
 training_checkpoint_freq: 1000
@@ -145,7 +146,7 @@ cit_flag: True # cit = channel is time
 n_wp: 8
 
 ## Reward:
-reward_terminal_success: 25
+reward_terminal_success: 30
 reward_step_scale: 1
 penalty_terminal_fail: -5
 penalty_cumulative_step: -4

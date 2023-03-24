@@ -742,9 +742,10 @@ void Tentabot::toPoint(int ind, geometry_msgs::Point32& po)
 
 void Tentabot::initialize(NodeHandle& nh)
 {
-  sort_tentacles();
-  calculate_tentacle_length_and_bbx_data();
+  sort_tentacles();   //依据轨迹平均坐标的某一轴（x, y , z）对轨迹数据和速度控制数据同步排序，输出数据：off_tuning_param.tentacle_data 和 off_tuning_param.velocity_control_data
+  calculate_tentacle_length_and_bbx_data();    //计算每条轨迹的长度和所有轨迹的最大、最小 x, y, z 坐标，输出数据：status_param.tentacle_length_data 和 status_param.tentacle_bbx_max.z等
 
+  //根据 tentacle_bbx 范围和 sdist 距离膨胀 得到机器人覆盖区域 ego-grid 在 x, y, z 各个方向上的格网数目
   status_param.egrid_vnum_x_max = abs(status_param.tentacle_bbx_max.x + off_tuning_param.sdist_x_max) / off_tuning_param.egrid_vdim + 1;
   status_param.egrid_vnum_x_min = abs(status_param.tentacle_bbx_min.x + off_tuning_param.sdist_x_min) / off_tuning_param.egrid_vdim + 1;
   status_param.egrid_vnum_y_max = abs(status_param.tentacle_bbx_max.y + off_tuning_param.sdist_y_max) / off_tuning_param.egrid_vdim + 1;
@@ -752,6 +753,7 @@ void Tentabot::initialize(NodeHandle& nh)
   status_param.egrid_vnum_z_max = abs(status_param.tentacle_bbx_max.z + off_tuning_param.sdist_z_max) / off_tuning_param.egrid_vdim + 1;
   status_param.egrid_vnum_z_min = abs(status_param.tentacle_bbx_min.z + off_tuning_param.sdist_z_min) / off_tuning_param.egrid_vdim + 1;
 
+  //根据 egrid_vdim 和 egrid_vnum 计算得到机器人覆盖区域 ego-grid 在 x, y, z 各个方向上的格网距离大小
   status_param.egrid_dist_x_max = off_tuning_param.egrid_vdim * status_param.egrid_vnum_x_max;
   status_param.egrid_dist_x_min = -1 * off_tuning_param.egrid_vdim * status_param.egrid_vnum_x_min;
   status_param.egrid_dist_y_max = off_tuning_param.egrid_vdim * status_param.egrid_vnum_y_max;
@@ -765,7 +767,7 @@ void Tentabot::initialize(NodeHandle& nh)
   construct_priority_support_voxel_data();
   ros::Time t3 = ros::Time::now();
   construct_sample_weight_data();
-  construct_tentacle_weight_data();
+  construct_tentacle_weight_data();   //计算轨迹占用值
 
   status_param.map_frame_name = "";
   status_param.tcrash_bin.resize(off_tuning_param.tentacle_data.size());
@@ -1389,10 +1391,10 @@ double Tentabot::calculate_between_tentacle_closeness(vector<geometry_msgs::Poin
 
 void Tentabot::sort_tentacles(string sort_type)
 {
-  vector<vector<geometry_msgs::Point>> tentacle_data_original = off_tuning_param.tentacle_data;
-  vector<vector<double>> velocity_control_data_original = off_tuning_param.velocity_control_data;
+  vector<vector<geometry_msgs::Point>> tentacle_data_original = off_tuning_param.tentacle_data;   //轨迹数据
+  vector<vector<double>> velocity_control_data_original = off_tuning_param.velocity_control_data;   //速度控制数据
   
-  int tentacle_cnt = off_tuning_param.tentacle_data.size();
+  int tentacle_cnt = off_tuning_param.tentacle_data.size();   //轨迹数
   int sample_cnt;
 
   double t_avg_x = 0;
@@ -1408,7 +1410,7 @@ void Tentabot::sort_tentacles(string sort_type)
 
   for (int i = 0; i < tentacle_cnt; ++i)
   {
-    sample_cnt = off_tuning_param.tentacle_data[i].size();
+    sample_cnt = off_tuning_param.tentacle_data[i].size();    //每条轨迹的采样点数
 
     t_avg_x = 0;
     t_avg_y = 0;
@@ -1416,20 +1418,21 @@ void Tentabot::sort_tentacles(string sort_type)
 
     for (int j = 0; j < sample_cnt; ++j)
     {
-      t_avg_x += off_tuning_param.tentacle_data[i][j].x;
+      t_avg_x += off_tuning_param.tentacle_data[i][j].x;    //每条轨迹的每个采样点的坐标
       t_avg_y += off_tuning_param.tentacle_data[i][j].y;
       t_avg_z += off_tuning_param.tentacle_data[i][j].z;
     }
 
-    t_avg_x /= sample_cnt;
+    t_avg_x /= sample_cnt;    //每条轨迹所有采样点的平均坐标
     t_avg_y /= sample_cnt;
     t_avg_z /= sample_cnt;
 
-    tentacle_avg_x.push_back(t_avg_x);
+    tentacle_avg_x.push_back(t_avg_x);   //size=轨迹数
     tentacle_avg_y.push_back(t_avg_y);
     tentacle_avg_z.push_back(t_avg_z);
   }
 
+  // 根据 x y 或者 z 轴对轨迹进行排序
   if (sort_type == "x")
   {
     cout << "Sorting tentacles by x-axis..." << endl;
@@ -1462,6 +1465,7 @@ void Tentabot::sort_tentacles(string sort_type)
   */
 
   //cout << "Tentabot::sort_tentacles -> Sorted:" << endl;
+  //依据轨迹平均坐标的某一轴（x, y , z）对轨迹数据和速度控制数据同步排序
   for (int i = 0; i < sorted_indices.size(); ++i)
   {
     //cout << i << " -> " << tentacle_avg[sorted_indices[i]] << endl;

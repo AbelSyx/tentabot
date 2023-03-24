@@ -497,7 +497,7 @@ class Tentabot
     // DESCRIPTION: TODO...UPDATE OCCUPANCY GRID DATA OF THE ROBOT
     void update_ego_grid_data();
 
-    // DESCRIPTION: TODO...
+    // DESCRIPTION: TODO... 更新每条轨迹的启发式函数占用值，并根据占用值对轨迹进行分类：1: NAVIGABLE, 0: NON-NAVIGABLE, -1: TEMPORARILY NAVIGABLE
     void update_heuristic_values();
 
     // DESCRIPTION: TODO...SELECT THE BEST TENTACLE

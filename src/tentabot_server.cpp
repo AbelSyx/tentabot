@@ -162,8 +162,8 @@ int main(int argc, char** argv)
     // INITIALIZE AND SET OFFLINE TUNING PARAMETERS FOR GRID AND TENTACLES
     Tentabot::OffTuningParams offtp;
     offtp.tentacle_data_path = tsu.get_trajectory_data_path();
-    offtp.tentacle_data = tsu.get_trajectory_data();
-    offtp.velocity_control_data = tsu.get_velocity_control_data();
+    offtp.tentacle_data = tsu.get_trajectory_data();   //获取轨迹数据：每条轨迹及其采样点
+    offtp.velocity_control_data = tsu.get_velocity_control_data();   //获取速度控制数据：线速度，角速度   vector<double> u; u=(v,w)
 
     pnh.param<double>("/max_occupancy_belief_value", offtp.max_occupancy_belief_value, 100);
     pnh.param<double>("/sweight_max", offtp.sweight_max, 0);

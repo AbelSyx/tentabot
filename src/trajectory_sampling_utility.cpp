@@ -627,7 +627,7 @@ void TrajectorySamplingUtility::construct_trajectory_data_by_simple_car_model(do
 
       traj = construct_trajectory_by_model("simple_car", x_init, u, dt);
       subsample(traj, trajectory_sampling_count);
-      trajectory_data.push_back(traj);
+      trajectory_data.push_back(traj);    //轨迹和控制速度的添加顺序一致，因此 trajectory_data 和 velocity_control_data 中的数据一一对应
       
       u.clear();
     }
