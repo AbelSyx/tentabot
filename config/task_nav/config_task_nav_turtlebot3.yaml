@@ -4,7 +4,7 @@
 # training_garden_dynamic_0
 # validation
 # real
-world_name: "training_garden_dynamic_0"
+world_name: "training_garden_static_1"
 world_frame_name: "world"
 
 ## Goal Parameters

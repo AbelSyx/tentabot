@@ -66,6 +66,7 @@ class Config():
 
         ## General
         self.mode = rospy.get_param('mode', "")
+        self.trajectory_rotation_recovery = rospy.get_param('trajectory_rotation_recovery', False)
 
         if self.mode == "training":
             
@@ -104,7 +105,10 @@ class Config():
             self.safety_range_threshold = rospy.get_param('safety_range_threshold', 0.0)
 
             self.n_actions = len(self.velocity_control_data)
-            self.n_observations = self.n_actions
+            if self.trajectory_rotation_recovery == True:
+                self.n_observations = self.n_actions - 2
+            if self.trajectory_rotation_recovery == False:
+                self.n_observations = self.n_actions
 
             self.n_obs_stack = rospy.get_param("n_obs_stack", 0.0)
             self.n_skip_obs_stack = rospy.get_param("n_skip_obs_stack", 0.0)
@@ -235,7 +239,10 @@ class Config():
             self.safety_range_threshold = float(get_training_param(self.initial_training_path, "safety_range_threshold"))
 
             self.n_actions = len(self.velocity_control_data)
-            self.n_observations = self.n_actions
+            if self.trajectory_rotation_recovery == True:
+                self.n_observations = self.n_actions - 2
+            if self.trajectory_rotation_recovery == False:
+                self.n_observations = self.n_actions
 
             self.n_obs_stack = int(get_training_param(self.initial_training_path, "n_obs_stack"))
             self.n_skip_obs_stack = int(get_training_param(self.initial_training_path, "n_skip_obs_stack"))

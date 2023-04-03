@@ -54,7 +54,8 @@ lat_velo_samp_cnt: 6
 ang_velo_samp_cnt: 15
 
 ## Offline Tuning Parameters
-trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20220323_142544/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
+trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20230401_222255/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
+trajectory_rotation_recovery: true   # 测试代码，只在“trajectory_sampling/turtlebot3/20230401_222255“中生效，除生成的轨迹库对应的速度集合外，手动添加（0，0.2）（0，-0.2）的速度集合，在所有轨迹占用值为1时使用
 max_occupancy_belief_value: 100
 sweight_max: 1 
 sweight_scale: 10 
@@ -87,7 +88,7 @@ smooth_scale: 1
 ### Common Parameters for Training and Testing
 mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
-initial_training_path: "20230321_113840_MaskablePPO_tentabot/"  # 20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
+initial_training_path: "20230401_231905_MaskablePPO_tentabot/"  # 20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
 #initial_training_path: ""    style for training firstly
 #initial_training_path: "20220220_001614_PPO_tentabot/"     style for training 
 #initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"   style for testing 
@@ -121,7 +122,7 @@ learning_rate: 0.0002
 n_steps: 1000
 batch_size: 100
 ent_coef: 0.001
-training_timesteps: 300000
+training_timesteps: 200000
 max_episode_steps: 2000
 
 training_checkpoint_freq: 1000
@@ -141,7 +142,7 @@ laser_image_height: 64
 obs_min_range: 0.25    # the min range to check collision or not
 safety_range_threshold: 0.60   # the min safe distance from an obstacle
 n_obs_stack: 5
-n_skip_obs_stack: 1
+n_skip_obs_stack: 2
 cit_flag: True # cit = channel is time
 n_wp: 8
 
