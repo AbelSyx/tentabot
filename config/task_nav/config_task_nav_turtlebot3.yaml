@@ -46,6 +46,6 @@ robot_init_pos_z: 0.0
 robot_init_yaw: 0.0
 
 robot_odometry_msg: "/turtlebot3_0/odom"
-#robot_odometry_msg: "/turtlebot3_0/odom_truth"
+#robot_odometry_msg: "/turtlebot3_0/odom_noisy"
 robot_pose_control_msg: ""
 robot_velo_control_msg: "/turtlebot3_0/cmd_vel"

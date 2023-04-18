@@ -93,7 +93,7 @@ drl_data_path: "dataset/drl/testing/turtlebot3/"
 #initial_training_path: ""    # style for training firstly
 #initial_training_path: "20220220_001614_PPO_tentabot/"     style for training 
 #initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"    #style for testing 
-initial_training_path: "dataset/drl/testing/turtlebot3/20230417_215613_MaskablePPO_tentabot/"
+initial_training_path: "dataset/drl/testing/turtlebot3/20230413_211429_MaskablePPO_tentabot/"
 
 ### DRL-Training Parameters
 # Options
