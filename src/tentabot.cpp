@@ -657,7 +657,7 @@ bool Tentabot::rl_step_srv(tentabot::rl_step::Request &req, tentabot::rl_step::R
   update_heuristic_values();
 
   // UPDATE RL OBSERVATION
-  //res.navigability_set = heuristic_param.navigability_set;
+  res.navigability_set = heuristic_param.navigability_set;
   res.occupancy_set = heuristic_param.occupancy_set;
   res.clearance_set = heuristic_param.clearance_set;
   res.clutterness_set = heuristic_param.clutterness_set;

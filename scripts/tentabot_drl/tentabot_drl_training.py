@@ -105,7 +105,7 @@ def get_param_value_from_training_log(log_path, param_name):
             if row[0] == param_name:
                 return row[1]
 
-    # MaskablePPO
+# MaskablePPO
 def mask_fn(env) -> np.ndarray:
     # Do whatever you'd like in this function to return the action mask
     # for the current env. In this example, we assume the env has a

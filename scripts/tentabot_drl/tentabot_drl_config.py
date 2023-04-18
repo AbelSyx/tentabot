@@ -106,7 +106,7 @@ class Config():
 
             self.n_actions = len(self.velocity_control_data)
             if self.trajectory_rotation_recovery == True:
-                self.n_observations = self.n_actions - 2
+                self.n_observations = self.n_actions - 1
             if self.trajectory_rotation_recovery == False:
                 self.n_observations = self.n_actions
 
@@ -240,7 +240,7 @@ class Config():
 
             self.n_actions = len(self.velocity_control_data)
             if self.trajectory_rotation_recovery == True:
-                self.n_observations = self.n_actions - 2
+                self.n_observations = self.n_actions - 1
             if self.trajectory_rotation_recovery == False:
                 self.n_observations = self.n_actions
 

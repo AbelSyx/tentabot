@@ -36,6 +36,8 @@
     <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher1">
       <param name="/use_gui" value="$(arg gui)" />
     </node>
+
+    <!--node name="noisy_odometry" pkg="tentabot" type="add_noise2odom_simple.py" output="screen" /-->
   </group>
 
   <group if="$(eval arg('robot') == 'turtlebot3_il')">

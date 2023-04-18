@@ -40,7 +40,7 @@ vector<double> sampling_func(double mini,
                              double maxi, 
                              int snum,
                              bool included=true,
-                             string stype="increase")
+                             string stype="linear")
 {
   if(snum < 2)
   { 

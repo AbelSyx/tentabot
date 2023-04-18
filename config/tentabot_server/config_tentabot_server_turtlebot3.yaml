@@ -35,11 +35,11 @@ goal_close_threshold: 0.25
 ground_collision_flag: false
 ground_collision_threshold: 0.1
 heuristic_data_path: "dataset/heuristic/turtlebot3/"
-drl_service_flag: true
+drl_service_flag: True
 
 ## Trajectory Sampling Parameters
 trajectory_sampling_dataset_path: "dataset/trajectory_sampling/turtlebot3/"
-tlen: 5
+tlen: 10
 tsamp_cnt: 20
 
 #trajectory_gen_type: "geometric"
@@ -49,13 +49,14 @@ tyaw_cnt: 1
 tpitch_cnt: 1
 
 trajectory_gen_type: "kinematic"
-ttime: 6
-lat_velo_samp_cnt: 6
-ang_velo_samp_cnt: 15
+ttime: 8
+lat_velo_samp_cnt: 5
+ang_velo_samp_cnt: 27
 
 ## Offline Tuning Parameters
 trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20230401_222255/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
-trajectory_rotation_recovery: true   # 测试代码，只在“trajectory_sampling/turtlebot3/20230401_222255“中生效，除生成的轨迹库对应的速度集合外，手动添加（0，0.2）（0，-0.2）的速度集合，在所有轨迹占用值为1时使用
+#trajectory_data_path: ""
+trajectory_rotation_recovery: True   # 测试代码，只在“trajectory_sampling/turtlebot3/20230401_222255“中生效，除生成的轨迹库对应的速度集合外，手动添加（0，0.2）（0，-0.2）的速度集合，在所有轨迹占用值为1时使用
 max_occupancy_belief_value: 100
 sweight_max: 1 
 sweight_scale: 10 
@@ -86,13 +87,13 @@ smooth_scale: 1
 #### NOTE: Be sure that -> drl_service_flag: true
 
 ### Common Parameters for Training and Testing
-mode: "training"
+mode: "testing"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
-initial_training_path: "20230401_231905_MaskablePPO_tentabot/"  # 20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
-#initial_training_path: ""    style for training firstly
+#initial_training_path: "20230415_232903_MaskablePPO_tentabot/"  # 20230415_232903_MaskablePPO_tentabot  20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
+#initial_training_path: ""    # style for training firstly
 #initial_training_path: "20220220_001614_PPO_tentabot/"     style for training 
-#initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"   style for testing 
-
+#initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"    #style for testing 
+initial_training_path: "dataset/drl/testing/turtlebot3/20230417_215613_MaskablePPO_tentabot/"
 
 ### DRL-Training Parameters
 # Options
@@ -139,8 +140,8 @@ laser_image_width: 64
 laser_image_height: 64
 
 ## Algorithm: Tentabot-DRL Parameters
-obs_min_range: 0.25    # the min range to check collision or not
-safety_range_threshold: 0.60   # the min safe distance from an obstacle
+obs_min_range: 0.16    # the min range to check collision or not
+safety_range_threshold: 0.45   # the min safe distance from an obstacle
 n_obs_stack: 5
 n_skip_obs_stack: 2
 cit_flag: True # cit = channel is time
@@ -148,13 +149,13 @@ n_wp: 8
 
 ## Reward:
 reward_terminal_success: 30
-reward_step_scale: 1
-penalty_terminal_fail: -5
-penalty_cumulative_step: -4
+reward_step_scale: 1.5
+penalty_terminal_fail: -8
+penalty_cumulative_step: -10
 penalty_safety_scale: -0.20
 penalty_speed_change: -0.005
 
 ### DRL-Testing Parameters
 max_testing_episode_timesteps: 2000
-max_testing_episodes: 2
+max_testing_episodes: 10
 goal_status_msg: "/turtlebot3_0/goal_reaching_status"

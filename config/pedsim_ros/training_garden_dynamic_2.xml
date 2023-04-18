@@ -44,17 +44,17 @@
         <addwaypoint id="tri_1"/>
     </agent>
 
-    <agent x="4.0" y="4.0" n="1" dx="0.1" dy="0.1" type="1">
+    <!--agent x="4.0" y="4.0" n="1" dx="0.1" dy="0.1" type="1">
         <addwaypoint id="tri_3"/>
         <addwaypoint id="tri_1"/>
         <addwaypoint id="tri_2"/>
-    </agent>
+    </agent-->
 
-    <agent x="5.0" y="0.0" n="1" dx="0.1" dy="0.1" type="1">
+    <!--agent x="5.0" y="0.0" n="1" dx="0.1" dy="0.1" type="1">
         <addwaypoint id="tri_1"/>
         <addwaypoint id="tri_2"/>
         <addwaypoint id="tri_3"/>
-    </agent>
+    </agent-->
 
     <agent x="-4.0" y="-4.0" n="1" dx="0.1" dy="0.1" type="1">
         <addwaypoint id="tetra_2"/>
@@ -63,12 +63,12 @@
         <addwaypoint id="tetra_1"/>
     </agent>
 
-    <agent x="-4.0" y="2.0" n="1" dx="0.1" dy="0.1" type="1">
+    <!--agent x="-4.0" y="2.0" n="1" dx="0.1" dy="0.1" type="1">
         <addwaypoint id="tetra_3"/>
         <addwaypoint id="tetra_4"/>
         <addwaypoint id="tetra_1"/>
         <addwaypoint id="tetra_2"/>
-    </agent>
+    </agent-->
 
     <agent x="2.0" y="0.0" n="1" dx="0.1" dy="0.1" type="1">
         <addwaypoint id="tetra_4"/>

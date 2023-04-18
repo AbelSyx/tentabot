@@ -2,9 +2,10 @@
 # Options:
 # training_garden_static_0
 # training_garden_dynamic_0
+# testing_lvl_2
 # validation
-# real
-world_name: "training_garden_static_1"
+# real   20230413_211429_MaskablePPO_tentabot
+world_name: "testing_lvl_3"
 world_frame_name: "world"
 
 ## Goal Parameters
@@ -34,10 +35,10 @@ robot_bbx_y_max: 0.2
 robot_bbx_z_min: -0.0
 robot_bbx_z_max: 0.6
 
-robot_max_lat_velo: 1.0
+robot_max_lat_velo: 0.5
 robot_max_lat_acc: 1.0
-robot_max_yaw_velo: 1.5
-robot_max_yaw_acc: 1.5
+robot_max_yaw_velo: 2.0
+robot_max_yaw_acc: 1.0
 
 robot_init_pos_x: 0.0                
 robot_init_pos_y: 0.0                 
@@ -45,5 +46,6 @@ robot_init_pos_z: 0.0
 robot_init_yaw: 0.0
 
 robot_odometry_msg: "/turtlebot3_0/odom"
+#robot_odometry_msg: "/turtlebot3_0/odom_truth"
 robot_pose_control_msg: ""
 robot_velo_control_msg: "/turtlebot3_0/cmd_vel"

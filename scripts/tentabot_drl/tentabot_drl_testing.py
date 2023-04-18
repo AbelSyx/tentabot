@@ -35,6 +35,10 @@ from openai_ros.openai_ros_common import StartOpenAI_ROS_Environment
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3 import PPO
 
+from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy, MaskableMultiInputActorCriticPolicy
+from sb3_contrib.common.wrappers import ActionMasker
+from sb3_contrib.ppo_mask import MaskablePPO
+
 '''
 DESCRIPTION: TODO...
 '''
@@ -73,6 +77,25 @@ def get_training_param(initial_training_path, param_name) -> str:
         for row in reader:
             if row[0] == param_name:
                 return row[1]
+
+# MaskablePPO
+def mask_fn(env) -> np.ndarray:
+    # Do whatever you'd like in this function to return the action mask
+    # for the current env. In this example, we assume the env has a
+    # helpful method we can rely on.
+    mask = env.valid_action_mask()
+    valid_mask_action = np.array([bool(i) for i in mask])
+    
+    print("-------------------")
+    '''
+    for i, val in enumerate(mask):
+        print(str(i) + ": " + str(val))
+    '''
+    print(valid_mask_action)
+    print("-------------------")
+    
+    return valid_mask_action
+
 
 '''
 DESCRIPTION: TODO...
@@ -198,6 +221,7 @@ if __name__ == '__main__':
     max_testing_episodes = rospy.get_param('max_testing_episodes', 0)
     velocity_control_msg = rospy.get_param('robot_velo_control_msg', "")
     odometry_msg = rospy.get_param('robot_odometry_msg', "")
+    #odometry_msg = "/turtlebot3_0/odom_truth"
     goal_status_msg = rospy.get_param('goal_status_msg', "")
 
     deep_learning_algorithm = get_training_param(tentabot_path + initial_training_path, "deep_learning_algorithm")
@@ -266,7 +290,9 @@ if __name__ == '__main__':
 
     while(counter < max_testing_episodes):
 
-        model = PPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
+        #model = PPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
+        env = ActionMasker(env, mask_fn)  # Wrap to enable masking
+        model = MaskablePPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
         print("--------------")
         print("tentabot_drl_testing::__main__ -> Testing episode " + str(counter) + ": Loaded initial_trained_model: " + initial_trained_model)
         print("--------------")
@@ -288,7 +314,9 @@ if __name__ == '__main__':
             #print("tentabot_drl_testing::__main__ -> i: {}".format(i))
             #print("--------------")
 
-            action, _ = model.predict(obs)
+            # action, _ = model.predict(obs)
+            valid_action_array = mask_fn(env)
+            action, _ = model.predict(obs, action_masks = valid_action_array)   # for MaskablePPO
             obs, reward, done, info = env.step(action)
             episode_reward += reward
             goal_reached = gr
