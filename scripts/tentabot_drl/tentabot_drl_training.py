@@ -271,7 +271,7 @@ if __name__ == '__main__':
 
     else:
         initial_training_path_specific = tentabot_path + data_path + initial_training_path
-        initial_trained_model = initial_training_path + "trained_model"
+        initial_trained_model = initial_training_path_specific + "trained_model"
         model = PPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
         model.set_env(env)
 
