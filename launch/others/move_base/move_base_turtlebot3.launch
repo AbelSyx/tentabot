@@ -33,6 +33,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
+  <arg name="rvizconfig"    default="$(find tentabot)/rviz/turtlebot3.rviz" />
+
+  <include file="$(find tentabot)/launch/utilities/mobile_garden.launch" >
+  </include>
+  
     <param name="base_global_planner" value="$(arg base_global_planner)"/>
     <param name="base_local_planner" value="$(arg base_local_planner)"/>  
     <rosparam file="$(find tentabot)/config/move_base/turtlebot3/turtlebot3_planner.yaml" command="load"/>

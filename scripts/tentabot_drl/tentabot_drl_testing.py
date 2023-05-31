@@ -35,6 +35,8 @@ from openai_ros.openai_ros_common import StartOpenAI_ROS_Environment
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3 import PPO
 
+from sb3_contrib import RecurrentPPO
+
 from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy, MaskableMultiInputActorCriticPolicy
 from sb3_contrib.common.wrappers import ActionMasker
 from sb3_contrib.ppo_mask import MaskablePPO
@@ -119,7 +121,7 @@ def get_successful_avg(data, success_data):
     for d in range(len(success_data)):
         if success_data[d] > 0:
             total_val += data[d]
-        counter += 1
+            counter += 1
     return total_val / counter
 
 '''
@@ -291,6 +293,7 @@ if __name__ == '__main__':
     while(counter < max_testing_episodes):
 
         #model = PPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
+        #model = RecurrentPPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
         env = ActionMasker(env, mask_fn)  # Wrap to enable masking
         model = MaskablePPO.load(initial_trained_model, env=None, tensorboard_log=tensorboard_log_path)
         print("--------------")
@@ -314,8 +317,8 @@ if __name__ == '__main__':
             #print("tentabot_drl_testing::__main__ -> i: {}".format(i))
             #print("--------------")
 
-            # action, _ = model.predict(obs)
-            valid_action_array = mask_fn(env)
+            #action, _ = model.predict(obs)
+            valid_action_array = mask_fn(env)  # for MaskablePPO
             action, _ = model.predict(obs, action_masks = valid_action_array)   # for MaskablePPO
             obs, reward, done, info = env.step(action)
             episode_reward += reward

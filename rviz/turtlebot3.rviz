@@ -501,7 +501,7 @@ Visualization Manager:
       Name: MarkerArray
       Namespaces:
         {}
-      Queue Size: 100
+      Queue Size: 1
       Value: false
     - Class: rviz/MarkerArray
       Enabled: false
