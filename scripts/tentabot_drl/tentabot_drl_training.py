@@ -275,6 +275,21 @@ if __name__ == '__main__':
             env = ActionMasker(env, mask_fn)  # Wrap to enable masking
             model = MaskablePPO(MaskableMultiInputActorCriticPolicy, env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)            
 
+    elif observation_space_type == "Tentabot_laser_1DCNN_FC":
+    
+        n_actions = env.action_space.n
+        print("tentabot_drl_training::__main__ -> n_actions: " + str(n_actions))
+
+        policy_kwargs = dict(features_extractor_class=Tentabot_laser_1DCNN_FC_Policy, net_arch=dict(pi=[400, 300], vf=[400, 300]),)
+        if deep_learning_algorithm == "PPO": 
+            model = PPO("MultiInputPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)
+        elif deep_learning_algorithm == "RecurrentPPO":
+            model = RecurrentPPO("MultiInputLstmPolicy", env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)            
+        elif deep_learning_algorithm == "MaskablePPO":
+            env = ActionMasker(env, mask_fn)  # Wrap to enable masking
+            model = MaskablePPO(MaskableMultiInputActorCriticPolicy, env, learning_rate=learning_rate, n_steps=n_steps, batch_size=batch_size, ent_coef=ent_coef, tensorboard_log=tensorboard_log_path, policy_kwargs=policy_kwargs, device="cuda", verbose=1)            
+
+    
     elif observation_space_type == "Tentabot_2DCNN_FC":
     
         n_actions = env.action_space.n

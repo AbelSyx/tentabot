@@ -402,9 +402,129 @@ class Tentabot_1DCNN_FC_Policy(BaseFeaturesExtractor):
         # Return a (B, self._features_dim) PyTorch tensor, where B is batch dimension.
         return th.cat(encoded_tensor_list, dim=1)
 
+"""
+SYX TODO...
+"""
+class Tentabot_laser_1DCNN_FC_Policy(BaseFeaturesExtractor):
+
+    def __init__(self, observation_space: gym.spaces.Dict):
+        # We do not know features-dim here before going over all the items,
+        # so put something dummy for now. PyTorch requires calling
+        # nn.Module.__init__ before adding modules
+
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> observation_space: " + str(observation_space))
+
+        super(Tentabot_laser_1DCNN_FC_Policy, self).__init__(observation_space, features_dim=1)
+
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> observation_space.spaces laser shape: " + str(observation_space.spaces["laser"].shape))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> observation_space.spaces occupancy shape: " + str(observation_space.spaces["occupancy"].shape))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> observation_space.spaces target_action shape: " + str(observation_space.spaces["target_action"].shape))
+
+        # laser input cnn
+        self.cnn_input_channel_len_laser = observation_space.spaces["laser"].shape[0]
+        self.cnn_input_data_len_laser = observation_space.spaces["laser"].shape[1]
+        # occupancy input cnn
+        self.cnn_input_channel_len_occupancy = observation_space.spaces["occupancy"].shape[0]
+        self.cnn_input_data_len_occupancy = observation_space.spaces["occupancy"].shape[1]
+        # target_action
+        self.fc_input_extra_data_len = observation_space.spaces["target_action"].shape[0]
+
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_input_channel_len_laser: " + str(self.cnn_input_channel_len_laser))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_input_data_len_laser: " + str(self.cnn_input_data_len_laser))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_input_channel_len_occupancy: " + str(self.cnn_input_channel_len_occupancy))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_input_data_len_occupancy: " + str(self.cnn_input_data_len_occupancy))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> fc_input_extra_data_len: " + str(self.fc_input_extra_data_len))
+
+        n_channel_input1_laser = self.cnn_input_channel_len_laser
+        n_channel_input1_occupancy = self.cnn_input_channel_len_occupancy
+        n_channel_output1 = 64
+        
+        n_channel_input2 = n_channel_output1
+        n_channel_output2 = 32
+
+        n_channel_input3 = n_channel_output2
+        n_channel_output3 = 32
+
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_input1_laser: " + str(n_channel_input1_laser))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_input1_occupancy: " + str(n_channel_input1_occupancy))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_output1: " + str(n_channel_output1))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_input2: " + str(n_channel_input2))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_output2: " + str(n_channel_output2))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_input3: " + str(n_channel_input3))
+        print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_channel_output3: " + str(n_channel_output3))
+        
+        self.cnn_net_laser = nn.Sequential(
+            nn.Conv1d(n_channel_input1_laser, n_channel_output1, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Conv1d(n_channel_input2, n_channel_output2, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Conv1d(n_channel_input3, n_channel_output3, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Flatten(),
+        )
+        
+        self.cnn_net_occupancy = nn.Sequential(
+            nn.Conv1d(n_channel_input1_occupancy, n_channel_output1, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Conv1d(n_channel_input2, n_channel_output2, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Conv1d(n_channel_input3, n_channel_output3, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Flatten(),
+        )
+
+        extractors = {}
+
+        # We need to know size of the output of this extractor,
+        # so go over all the spaces and compute output feature sizes
+        for key, subspace in observation_space.spaces.items():
+            if key == "laser":
+                extractors[key] = self.cnn_net_laser
+            
+            if key == "occupancy":
+                extractors[key] = self.cnn_net_occupancy
+            
+            elif key == "target_action":
+                extractors[key] = nn.Flatten()
+
+        # Compute shape by doing one forward pass
+        with th.no_grad():
+            cnn_input_sample_laser = observation_space.spaces["laser"].sample()[None]
+
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_input_sample_laser shape: " + str(cnn_input_sample_laser.shape))
+
+            cnn_input_sample_occupancy = observation_space.spaces["occupancy"].sample()[None]
+
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_input_sample_occupancy shape: " + str(cnn_input_sample_occupancy.shape))
+
+            cnn_output_laser = self.cnn_net_laser(th.as_tensor(cnn_input_sample_laser).float())
+
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_output shape: " + str(cnn_input_sample_laser.shape))
+            
+            cnn_output_occupancy = self.cnn_net_occupancy(th.as_tensor(cnn_input_sample_occupancy).float())
+
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_output shape: " + str(cnn_input_sample_occupancy.shape))
+
+            n_flatten = cnn_output_laser.shape[1] + cnn_output_occupancy.shape[1] + self.fc_input_extra_data_len
+
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> n_flatten: " + str(n_flatten))
+
+        self.extractors = nn.ModuleDict(extractors)
+
+        # Update the features dim manually
+        self._features_dim = n_flatten
+
+    def forward(self, observations) -> th.Tensor:
+        encoded_tensor_list = []
+
+        # self.extractors contain nn.Modules that do all the processing.
+        for key, extractor in self.extractors.items():
+            encoded_tensor_list.append(extractor(observations[key]))
+        # Return a (B, self._features_dim) PyTorch tensor, where B is batch dimension.
+        return th.cat(encoded_tensor_list, dim=1)
 
 """
-NUA TODO...
+SYX TODO...
 """
 class Tentabot_1DCNN_LSTM_FC_Policy(BaseFeaturesExtractor):
 

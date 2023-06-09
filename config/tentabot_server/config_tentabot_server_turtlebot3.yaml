@@ -88,13 +88,13 @@ smooth_scale: 1
 
 ### Common Parameters for Training and Testing
 #mode: "training"
-mode: "testing"
+mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
 #initial_training_path: "20230527_235353_MaskablePPO_tentabot/"  # 20230415_232903_MaskablePPO_tentabot  20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
-#initial_training_path: ""    # style for training firstly
+initial_training_path: ""    # style for training firstly
 #initial_training_path: "20230514_231555_MaskablePPO_tentabot/"     style for training 
 #initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"    #style for testing 
-initial_training_path: "dataset/drl/testing/turtlebot3/20230528_121035_MaskablePPO_tentabot/"      #20230520_234410_MaskablePPO_tentabot
+#initial_training_path: "dataset/drl/testing/turtlebot3/20230528_121035_MaskablePPO_tentabot/"      #20230520_234410_MaskablePPO_tentabot
 
 ### DRL-Training Parameters
 # Options
@@ -111,9 +111,10 @@ motion_planning_algorithm: "tentabot_drl"
 # laser_1DCNN_FC          -> 1DCNN(Channel: time, Length: laser_data) + FC(CNN_output + target + prev_action)
 # Tentabot_FC             -> FC(occupancy_set + target + prev_action)
 # Tentabot_1DCNN_FC       -> 1DCNN(Channel: time, Length: occupancy_set) + FC(CNN_output + target + prev_action), if cit_flag = True 
-# Tentabot_1DCNN_FC       -> 1DCNN(Channel: occupancy_set, Length: time) + FC(CNN_output + target + prev_action), if cit_flag = False 
+# Tentabot_1DCNN_FC       -> 1DCNN(Channel: occupancy_set, Length: time) + FC(CNN_output + target + prev_action), if cit_flag = False
+# Tentabot_laser_1DCNN_FC -> 1DCNN(Channel: time, Length: occupancy_set) + 1DCNN(Channel: time, Length: laser_data) + FC(CNN_output + target + prev_action), if cit_flag = True  
 # Tentabot_2DCNN_FC       -> 2DCNN(Channel: 1, Height: occupancy_set, Width: time) + FC(CNN_output + target + prev_action)
-observation_space_type: "Tentabot_1DCNN_FC"
+observation_space_type: "Tentabot_laser_1DCNN_FC"
 
 # Options:
 # TurtleBot3tentabot_drl-v0
@@ -124,7 +125,7 @@ learning_rate: 0.0002
 n_steps: 1000
 batch_size: 100
 ent_coef: 0.001
-training_timesteps: 150000
+training_timesteps: 200000
 max_episode_steps: 2000
 
 training_checkpoint_freq: 1000
