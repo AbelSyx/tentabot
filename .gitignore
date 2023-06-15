@@ -1,6 +1,7 @@
 __pycache__/
 dataset/drl/testing/
 dataset/drl/training/
+dataset/heuristic/
 dataset/il/expert/
 dataset/il/testing/
 dataset/il/training/
