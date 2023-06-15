@@ -318,6 +318,7 @@ if __name__ == '__main__':
 
     else:
         initial_training_path_specific = tentabot_path + data_path + initial_training_path
+
         print("tentabot_path: ", tentabot_path)
         print("data_path: ", data_path)
         print("initial_training_path: ", initial_training_path)

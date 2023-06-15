@@ -35,7 +35,9 @@ goal_close_threshold: 0.25
 ground_collision_flag: false
 ground_collision_threshold: 0.1
 heuristic_data_path: "dataset/heuristic/turtlebot3/"
+
 drl_service_flag: True
+
 
 ## Trajectory Sampling Parameters
 trajectory_sampling_dataset_path: "dataset/trajectory_sampling/turtlebot3/"
@@ -87,7 +89,7 @@ smooth_scale: 1
 #### NOTE: Be sure that -> drl_service_flag: true
 
 ### Common Parameters for Training and Testing
-#mode: "training"
+
 mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
 #initial_training_path: "20230614_120729_MaskablePPO_tentabot/"  # 20230415_232903_MaskablePPO_tentabot  20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/

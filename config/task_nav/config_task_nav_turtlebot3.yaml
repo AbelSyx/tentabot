@@ -4,8 +4,9 @@
 # training_garden_dynamic_0
 # testing_lvl_2   testing_lvl_5  testing_lvl_10
 # validation
-# real   20230413_211429_MaskablePPO_tentabot
+
 world_name: "training_garden_static_0"
+
 world_frame_name: "world"
 
 ## Goal Parameters
