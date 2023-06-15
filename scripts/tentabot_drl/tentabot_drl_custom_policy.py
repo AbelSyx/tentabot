@@ -437,7 +437,7 @@ class Tentabot_laser_1DCNN_FC_Policy(BaseFeaturesExtractor):
 
         n_channel_input1_laser = self.cnn_input_channel_len_laser
         n_channel_input1_occupancy = self.cnn_input_channel_len_occupancy
-        n_channel_output1 = 64
+        n_channel_output1 = 32
         
         n_channel_input2 = n_channel_output1
         n_channel_output2 = 32
@@ -499,11 +499,11 @@ class Tentabot_laser_1DCNN_FC_Policy(BaseFeaturesExtractor):
 
             cnn_output_laser = self.cnn_net_laser(th.as_tensor(cnn_input_sample_laser).float())
 
-            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_output shape: " + str(cnn_input_sample_laser.shape))
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_output shape: " + str(cnn_output_laser.shape))
             
             cnn_output_occupancy = self.cnn_net_occupancy(th.as_tensor(cnn_input_sample_occupancy).float())
 
-            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_output shape: " + str(cnn_input_sample_occupancy.shape))
+            print("Tentabot_laser_1DCNN_FC_Policy::__init__ -> cnn_output shape: " + str(cnn_output_occupancy.shape))
 
             n_flatten = cnn_output_laser.shape[1] + cnn_output_occupancy.shape[1] + self.fc_input_extra_data_len
 

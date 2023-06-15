@@ -51,10 +51,10 @@ tpitch_cnt: 1
 trajectory_gen_type: "kinematic"
 ttime: 8
 lat_velo_samp_cnt: 5
-ang_velo_samp_cnt: 27
+ang_velo_samp_cnt: 15
 
 ## Offline Tuning Parameters
-trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20230401_222255/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
+trajectory_data_path: "dataset/trajectory_sampling/turtlebot3/20230614_120443/"   # dataset/trajectory_sampling/turtlebot3/20220323_142544/
 #trajectory_data_path: ""
 trajectory_rotation_recovery: true   # 测试代码，只在“trajectory_sampling/turtlebot3/20230401_222255“中生效，除生成的轨迹库对应的速度集合外，手动添加（0，0.2）（0，-0.2）的速度集合，在所有轨迹占用值为1时使用
 max_occupancy_belief_value: 100
@@ -90,9 +90,9 @@ smooth_scale: 1
 #mode: "training"
 mode: "training"
 drl_data_path: "dataset/drl/testing/turtlebot3/"
-#initial_training_path: "20230527_235353_MaskablePPO_tentabot/"  # 20230415_232903_MaskablePPO_tentabot  20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
+#initial_training_path: "20230614_120729_MaskablePPO_tentabot/"  # 20230415_232903_MaskablePPO_tentabot  20230305_165817_RecurrentPPO_tentabot/   20230316_231815_MaskablePPO_tentabot/
 initial_training_path: ""    # style for training firstly
-#initial_training_path: "20230514_231555_MaskablePPO_tentabot/"     style for training 
+#initial_training_path: "20230606_175054_MaskablePPO_tentabot/"     style for training 
 #initial_training_path: "dataset/benchmark/2022_IROS/training_data/IROS22_Tentabot_FC/20220228_002535_PPO_tentabot/"    #style for testing 
 #initial_training_path: "dataset/drl/testing/turtlebot3/20230528_121035_MaskablePPO_tentabot/"      #20230520_234410_MaskablePPO_tentabot
 
@@ -123,7 +123,7 @@ task_and_robot_environment_name: "TurtleBot3tentabot_drl-v00"
 
 learning_rate: 0.0002
 n_steps: 1000
-batch_size: 100
+batch_size: 128
 ent_coef: 0.001
 training_timesteps: 200000
 max_episode_steps: 2000
@@ -144,8 +144,8 @@ laser_image_height: 64
 ## Algorithm: Tentabot-DRL Parameters
 obs_min_range: 0.16    # the min range to check collision or not
 safety_range_threshold: 0.45   # the min safe distance from an obstacle
-n_obs_stack: 5
-n_skip_obs_stack: 2
+n_obs_stack: 4
+n_skip_obs_stack: 3
 cit_flag: True # cit = channel is time
 n_wp: 8
 
