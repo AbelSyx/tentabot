@@ -37,7 +37,7 @@ git clone https://github.com/RIVeR-Lab/pedsim_ros.git 				#'noetic-akmandor' bra
 git clone https://github.com/RIVeR-Lab/turtlebot3.git 				#'noetic-akmandor' branch*
 git clone https://github.com/RIVeR-Lab/LMS1xx.git 					#'noetic-akmandor' branch*
 git clone https://github.com/RIVeR-Lab/geometry2.git 				#'noetic-akmandor' branch*
-git clone https://github.com/RIVeR-Lab/openai_ros.git
+git clone https://github.com/AbelSyx/openai_ros.git
 git clone https://github.com/RIVeR-Lab/tentabot.git
 ```
 
