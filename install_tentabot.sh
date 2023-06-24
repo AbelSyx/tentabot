@@ -54,7 +54,7 @@ git checkout noetic-akmandor
 cd ..
 
 # 3.3 Install other developed ROS packages.
-git clone https://github.com/RIVeR-Lab/openai_ros.git
+git clone https://github.com/AbelSyx/openai_ros.git
 cd ..
 
 # 3.4 Install Python dependencies (required for tentabot drl).
